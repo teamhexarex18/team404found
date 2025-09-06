@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+    form {
+      background: #fff;
+      padding: 45px;
+
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background: #0056b3;
+    }
+    .link {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <form action="/login" method="post">
+    <h1>Login into account</h1>
+
+
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" placeholder="Enter Email" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" placeholder="Enter Password" required><br><br>
+
+    <a class="link" href="/forget-password">Forgot Password?</a><br><br>
+    <a class="link" href="/register">Sign up instead</a><br><br>
+
+    <input type="submit" name="login" value="Login">
+  </form>
+</body>
+</html>

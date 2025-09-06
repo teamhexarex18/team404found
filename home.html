@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f9f9f9; color: #333; line-height: 1.6; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #006ce0;
+      position: fixed;
+      padding: 30px 20px 20px;
+      color: white;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    .sidebar a { padding: 15px 20px; text-decoration: none; color: #ecf0f1; display: block; border-radius: 12px; margin-bottom: 8px; font-weight: 500; transition: background 0.3s ease; }
+    .sidebar a:hover { background-color: #00448d; }
+
+    /* Content */
+    .content { margin-left: 270px; padding: 30px; }
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 20px; background-color: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 30px; }
+    .search-bar input { padding: 10px 16px; width: 240px; border: 1px solid #ddd; border-radius: 25px; outline: none; transition: border 0.3s; }
+    .search-bar input:focus { border-color: #006ce0; }
+    .btn { background-color: #006ce0; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.3s; text-decoration: none; }
+    .btn:hover { background-color: #0050a0; }
+
+    .cards { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 20px; }
+    .card { border: 1px solid #e1e1e1; padding: 20px; width: 220px; text-align: center; background-color: white; border-radius: 16px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); transition: transform 0.2s ease; }
+    .card:hover { transform: translateY(-5px); }
+    .card img { width: 100%; height: auto; border-radius: 12px; margin-bottom: 15px; }
+
+    .user-info { display: flex; align-items: center; gap: 20px; margin-top: 40px; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); max-width: fit-content; }
+    .user-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .user-details p { margin: 0; font-size: 14px; color: #555; }
+    .user-details p:first-child { font-weight: 600; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="/projects">Projects</a>
+    <a href="/tasks">My Tasks</a>
+    <div class="user-info">
+      <div class="user-details">
+        <p style="color:black">{{ user.name }}</p>
+        <p style="color: black;">{{ user.email }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div class="header">
+      <div class="search-bar">
+        <input type="text" placeholder="Search Projects or Tasks..." id="searchInput">
+      </div>
+      <a href="/projects/add" class="btn">+ New Project</a>
+    </div>
+
+    <h3>My Projects</h3>
+    <div class="cards">
+      {% for project in projects %}
+      <div class="card">
+        <img src="https://via.placeholder.com/150" alt="{{ project.project_name }}">
+        <p><strong>{{ project.project_name }}</strong></p>
+        <p>Priority: {{ project.priority }}</p>
+        <p>Created: {{ project.created_at.strftime('%d-%b-%Y') }}</p>
+      </div>
+      {% else %}
+      <p>No projects found. Create a new project to get started!</p>
+      {% endfor %}
+    </div>
+
+    <h3 style="margin-top: 40px;">My Tasks</h3>
+    <div class="cards">
+      {% for task in tasks %}
+      <div class="card">
+        {% if task.image_url %}
+        <img src="{{ url_for('static', filename=task.image_url) }}" alt="{{ task.task_name }}">
+        {% else %}
+        <img src="https://via.placeholder.com/150" alt="{{ task.task_name }}">
+        {% endif %}
+        <p><strong>{{ task.task_name }}</strong></p>
+        <p>Status: {{ task.status }}</p>
+        <p>Due: {{ task.due_date.strftime('%d-%b-%Y') }}</p>
+      </div>
+      {% else %}
+      <p>No tasks assigned.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+</html>

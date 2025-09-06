@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Project</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+    body {display:flex; height:100vh; background:#f9f9f9; color:#333; line-height:1.6; transition: background 0.3s, color 0.3s;}
+    
+    /* Sidebar */
+    .sidebar {width:250px; height:100vh; background-color:#006ce0; position:fixed; top:0; left:0; padding:30px 20px 20px; color:white; border-top-right-radius:20px; border-bottom-right-radius:20px; box-shadow:2px 0 10px rgba(0,0,0,0.1); display:flex; flex-direction:column; justify-content:space-between;}
+    .sidebar a {padding:15px 20px; text-decoration:none; color:#ecf0f1; display:block; border-radius:12px; margin-bottom:8px; transition: background 0.3s ease; font-weight:500;}
+    .sidebar a:hover {background-color:#00448d;}
+    .user-info {display:flex; align-items:center; gap:10px; margin-top:40px; padding:10px; background:white; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.05); max-width:fit-content; color:#333;}
+    .theme-toggle .btn {padding:5px 10px; font-size:12px; border:none; border-radius:12px; cursor:pointer; background:#006ce0; color:white;}
+    .theme-toggle .btn:hover {background:#00448d;}
+    .user-details p {margin:0; font-size:12px; color:#555;}
+    .user-details p:first-child {font-weight:600; color:#333;}
+
+    /* Main content */
+    .main {margin-left:270px; flex:1; padding:30px; overflow-y:auto; transition: background 0.3s, color 0.3s;}
+    .breadcrumb {font-size:14px; color:#555; margin-bottom:20px;}
+    .task-item {margin-bottom:15px;}
+    .task-label {font-weight:600; display:block; margin-bottom:5px; color:#2c3e50;}
+    .input-field, select, textarea {width:100%; padding:10px; border:1px solid #ddd; border-radius:6px; margin-bottom:5px; background:#fff; font-size:14px;}
+    textarea {resize:vertical;}
+    .radio-group {display:flex; gap:15px; margin:10px 0;}
+    .upload-box {border:2px dashed #ddd; border-radius:6px; padding:15px; text-align:center; margin:10px 0; cursor:pointer;}
+    .upload-box:hover {border-color:#3498db; color:#3498db;}
+    .form-buttons {display:flex; gap:15px; margin-bottom:20px;}
+    .btn {padding:10px 20px; border:none; border-radius:25px; cursor:pointer; font-weight:600; font-size:14px; transition:all 0.2s; min-width:100px;}
+    #discard {background-color:#e74c3c; color:white;}
+    #discard:hover {background-color:#c0392b;}
+    #save {background-color:#2ecc71; color:white;}
+    #save:hover {background-color:#27ae60;}
+
+    /* Dark mode */
+    body.dark-mode {background:#1e1e1e; color:#f5f5f5;}
+    body.dark-mode .main {background:#1e1e1e; color:#f5f5f5;}
+    body.dark-mode .input-field, body.dark-mode select, body.dark-mode textarea {background:#2c2c2c; color:#fff; border:1px solid #444;}
+    body.dark-mode .breadcrumb {color:#aaa;}
+    body.dark-mode .user-info {background:#2c2c2c; color:#fff;}
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <a href="#">Projects</a>
+      <a href="#">My Tasks</a>
+    </div>
+    <div class="user-info">
+      <div class="theme-toggle">
+        <button class="btn" id="toggleTheme">☀/☾</button>
+      </div>
+      <div class="user-details">
+        <p>Test User</p>
+        <p>user@mail</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="breadcrumb">Projects > New Project</div>
+
+    <!-- Form -->
+    <form action="/projects/add" method="POST" enctype="multipart/form-data">
+
+      <!-- Buttons -->
+      <div class="form-buttons">
+        <button type="reset" class="btn" id="discard">Discard</button>
+        <button type="submit" class="btn" id="save">Save</button>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Project Name</span>
+        <input type="text" name="name" id="projectName" class="input-field" placeholder="Enter project name" required>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Tags</span>
+        <select name="tags" id="tags" class="input-field" multiple>
+          <option value="finance">Finance</option>
+          <option value="education">Education</option>
+          <option value="technology">Technology</option>
+          <option value="gaming">Gaming</option>
+        </select>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Project Manager</span>
+        <select name="manager" id="manager" class="input-field">
+          <option value="">-- Select Manager --</option>
+          <option value="ram">Ram</option>
+          <option value="sita">Sita</option>
+          <option value="arjun">Arjun</option>
+        </select>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Deadline</span>
+        <input type="date" name="deadline" id="deadline" class="input-field">
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Priority</span>
+        <div class="radio-group">
+          <label><input type="radio" name="priority" value="1"> Low</label>
+          <label><input type="radio" name="priority" value="2"> Medium</label>
+          <label><input type="radio" name="priority" value="3"> High</label>
+        </div>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Image</span>
+        <div class="upload-box">
+          <input type="file" name="image" id="image" accept="image/*">
+        </div>
+      </div>
+
+      <div class="task-item">
+        <span class="task-label">Description</span>
+        <textarea name="description" id="description" class="input-field" rows="5" placeholder="Enter project description"></textarea>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    // Theme toggle
+    document.getElementById('toggleTheme').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+</body>
+</html>

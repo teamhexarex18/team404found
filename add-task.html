@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Create/Edit</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #006ce0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 30px 20px 20px;
+      color: white;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar a {
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #ecf0f1;
+      display: block;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      transition: background 0.3s ease;
+      font-weight: 500;
+    }
+
+    .sidebar a:hover {
+      background-color: #00448d;
+    }
+
+    /* Sidebar user-info box */
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 40px;
+      padding: 10px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      max-width: fit-content;
+      color: #333;
+    }
+
+    .theme-toggle .btn {
+      padding: 5px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #006ce0;
+      color: white;
+    }
+
+    .theme-toggle .btn:hover {
+      background: #00448d;
+    }
+
+    .user-details p {
+      margin: 0;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .user-details p:first-child {
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* Content */
+    .main {
+      margin-left: 270px;
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .task-form label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .task-form input,
+    .task-form select,
+    .task-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background-color: #fff;
+      color: #333;
+      font-size: 14px;
+      transition: background 0.3s, color 0.3s, border 0.3s;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .form-buttons {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+      min-width: 100px;
+    }
+
+    #discard {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    #discard:hover {
+      background-color: #c0392b;
+    }
+
+    #save {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    #save:hover {
+      background-color: #27ae60;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+
+    body.dark-mode .main {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+
+    body.dark-mode .task-form input,
+    body.dark-mode .task-form select,
+    body.dark-mode .task-form textarea {
+      background-color: #2c2c2c;
+      color: #fff;
+      border: 1px solid #444;
+    }
+
+    body.dark-mode .breadcrumb {
+      color: #aaa;
+    }
+
+    body.dark-mode .user-info {
+      background: #2c2c2c;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div>
+      <a href="#">Projects</a>
+      <a href="#">My Tasks</a>
+    </div>
+    <div class="user-info">
+      <div class="theme-toggle">
+        <button class="btn" id="toggleTheme">☀/☾</button>
+      </div>
+      <div class="user-details">
+        <p>Test User</p>
+        <p>user@mail</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main">
+    <div class="breadcrumb">Projects > New Task</div>
+    <div class="task-form">
+      
+      <!-- Save & Discard Buttons at Top -->
+      <div class="form-buttons">
+        <button class="btn" id="discard">Discard</button>
+        <button class="btn" id="save">Save</button>
+      </div>
+
+      <label for="taskName">Name</label>
+      <input type="text" id="taskName" placeholder="Task name">
+
+      <label for="assignee">Assignee</label>
+      <select id="assignee">
+        <option value="">Select Assignee</option>
+      </select>
+
+      <label for="project">Project</label>
+      <input type="text" id="project" placeholder="Project name" readonly>
+
+      <label for="tags">Tags</label>
+      <select id="tags" multiple>
+        <option value="finance">Finance</option>
+        <option value="education">Education</option>
+        <option value="technology">Technology</option>
+        <option value="gaming">Gaming</option>
+      </select>
+
+      <label for="deadline">Deadline</label>
+      <input type="date" id="deadline">
+
+      <label for="image">Image</label>
+      <input type="file" id="image">
+
+      <label for="description">Description</label>
+      <textarea id="description" rows="5" placeholder="Task description"></textarea>
+    </div>
+  </div>
+
+  <script>
+    // Dummy Assignee List
+    const assignees = ["Alice", "Bob", "Charlie"];
+    const assigneeSelect = document.getElementById('assignee');
+    assignees.forEach(name => {
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      assigneeSelect.appendChild(option);
+    });
+
+    // Theme Toggle
+    document.getElementById('toggleTheme').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+
+    // Auto-set Project Name
+    document.getElementById('project').value = "Project Name";
+
+    // Discard Button
+    document.getElementById('discard').addEventListener('click', () => {
+      document.getElementById('taskName').value = '';
+      document.getElementById('assignee').value = '';
+      document.getElementById('tags').value = '';
+      document.getElementById('deadline').value = '';
+      document.getElementById('image').value = '';
+      document.getElementById('description').value = '';
+    });
+
+    // Save Button
+    document.getElementById('save').addEventListener('click', () => {
+      const task = {
+        name: document.getElementById('taskName').value,
+        assignee: document.getElementById('assignee').value,
+        project: document.getElementById('project').value,
+        tags: Array.from(document.getElementById('tags').selectedOptions).map(o => o.value),
+        deadline: document.getElementById('deadline').value,
+        description: document.getElementById('description').value
+      };
+      console.log("Task Saved:", task);
+      alert("Task saved! Check console for details.");
+    });
+  </script>
+</body>
+</html>
