@@ -1,5 +1,5 @@
 Project Status 
-Our project is now live, but due to the nature of our hackathon setup, we are using a temporary, tunneled backend server. This means the URL we used for development is not permanent and will not work if you try to run the code locally.
+Our project is not live,  due to the nature of our hackathon setup, we are using a temporary, tunneled backend server. This means the URL we used for development is not permanent and will not work if you try to run the code locally.
 
 We are not including the live backend link in this repository.
 
