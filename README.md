@@ -1,3 +1,13 @@
+Project Status 
+Our project is now live, but due to the nature of our hackathon setup, we are using a temporary, tunneled backend server. This means the URL we used for development is not permanent and will not work if you try to run the code locally.
+
+We are not including the live backend link in this repository.
+
+Instead, we've created a video demonstration to show you the complete, working application. This video proves that our frontend code successfully interacts with our backend and is fully functional.
+
+Watch our project in action here:
+https://drive.google.com/file/d/17eXOKPzd4m5c8aDsiTimPZcwT4DkBziZ/view?usp=sharing
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
