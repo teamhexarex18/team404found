@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link,useNavigate} from 'react-router-dom';
 import './login.css';
-
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const [email, setEmail]=useState('');
+  const [password, setPassword]=useState('');
+  const [error, setError]=useState('');
+  const navigate=useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin=async(e)=> {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -26,7 +25,6 @@ function LoginPage() {
       console.error(err);
     }
   };
-
   return (
     <form onSubmit={handleLogin}>
       <h1>Login into account</h1>
@@ -35,9 +33,9 @@ function LoginPage() {
       <input
         type="email"
         name="email"
-        placeholder="Enter Email"
+        placeholder="ennter Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e)=>setEmail(e.target.value)}
         required
       /><br /><br />
       <label htmlFor="password">Password:</label>
@@ -59,5 +57,4 @@ function LoginPage() {
     </form>
   );
 }
-
 export default LoginPage;
