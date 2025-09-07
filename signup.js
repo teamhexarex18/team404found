@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import {Link,useNavigate } from 'react-router-dom';
 import './signup.css';
-
 function SignupPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [cpassword, setCpassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
-
+  const [name,setName]=useState('');
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [cpassword, setCpassword]=useState('');
+  const [error, setError]=useState('');
+  const [success, setSuccess]=useState('');
+  const navigate=useNavigate();
   const handleSignup = async (e) => {
     e.preventDefault();
     if (password !== cpassword) {
@@ -28,7 +26,6 @@ function SignupPage() {
           password,
         }
       );
-      // Save email and redirect to OTP page
       localStorage.setItem('userEmail', email);
       navigate('/otp');
     } catch (err) {
@@ -89,5 +86,4 @@ function SignupPage() {
     </form>
   );
 }
-
 export default SignupPage;
