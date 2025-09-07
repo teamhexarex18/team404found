@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import './otp.css';
-
 function OtpPage() {
-    const [otp, setOtp] = useState('');
-    const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
-    const navigate = useNavigate();
-
-    const handleOtpSubmit = async (e) => {
+    const [otp, setOtp]=useState('');
+    const [error, setError]=useState('');
+    const [message, setMessage]=useState('');
+    const navigate=useNavigate();
+    const handleOtpSubmit =async(e)=>{
         e.preventDefault();
         try {
             const userEmail = localStorage.getItem('userEmail');
@@ -17,23 +15,20 @@ function OtpPage() {
                 setError('Email not found. Please register again.');
                 return;
             }
-            
             const response = await axios.post(
                 'https://heavily-blonde-coming-destroy.trycloudflare.com/verify-otp',
                 {
                     email: userEmail,
                     otp: otp,
-                }
-            );
-            
-            localStorage.setItem('token', response.data.token);
-            navigate('/'); // Redirect to login page
+                });
+        
+            localStorage.setItem('token',response.data.token);
+            navigate('/'); 
         } catch (err) {
             setError('Invalid OTP. Please try again.');
             console.error(err);
         }
     };
-
     return (
         <div className="otp-container">
             <form className="otp-form" onSubmit={handleOtpSubmit}>
@@ -55,5 +50,4 @@ function OtpPage() {
         </div>
     );
 }
-
 export default OtpPage;
