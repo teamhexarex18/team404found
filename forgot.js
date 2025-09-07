@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './forgot.css';
-
 function ForgotPasswordPage() {
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [isError, setIsError] = useState(false);
-
+    const [email,setEmail] = useState('');
+    const [message,setMessage] = useState('');
+    const [isError,setIsError] = useState(false);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -19,19 +17,18 @@ function ForgotPasswordPage() {
             setIsError(true);
         }
     };
-
     return (
         <div className="forgot-password-container">
             <form className="forgot-password-form" onSubmit={handleSubmit}>
                 <h1>Forgot Password</h1>
                 <p>Please enter your registered email</p>
-                {message && <p className={isError ? "error-message" : "success-message"}>{message}</p>}
+                {message && <p className={isError ? "error-message":"success-message"}>{message}</p>}
                 <input
                     type="email"
                     name="email"
                     placeholder="Enter your email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e)=>etEmail(e.target.value)}
                     required
                 />
                 <input type="submit" value="Send OTP" />
@@ -40,5 +37,6 @@ function ForgotPasswordPage() {
         </div>
     );
 }
+
 
 export default ForgotPasswordPage;
